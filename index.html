@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css">
+        <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
+        <style>
+        html, body, #map {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        
+        </style>
+        <title>History of the River Table &mdash; Greg Klassen</title>
+    </head>
+    <body>
+        <div id="map">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="data/GKmapdata_0.js"></script>
+        <script>
+			var map = L.map('map', {
+				zoomControl:true, maxZoom:9, minZoom:2
+			}).fitBounds([[-65,-170],[78, 170]]);
+			
+			map.setZoom(2);
+			map.panTo(new L.LatLng(11.26, 11.51));
+			
+			var hash = new L.Hash(map);
+			var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
+			var bounds_group = new L.featureGroup([]);
+
+			function setBounds() {}        
+            
+			map.createPane('pane_ESRIGraylight_0');
+			map.getPane('pane_ESRIGraylight_0').style.zIndex = 400; 
+			var layer_ESRIGraylight_0 = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
+				pane: 'pane_ESRIGraylight_0',
+				opacity: 1.0,
+				attribution: '',
+				minZoom: 2,
+				maxZoom: 9,
+				minNativeZoom: 2,
+				maxNativeZoom: 9
+			});
+			layer_ESRIGraylight_0;
+			map.addLayer(layer_ESRIGraylight_0);
+			
+			var chit = L.icon({
+				iconUrl: 'images/GK-ICON_circle.png',
+				shadowUrl: 'images/GK-ICON_circle.png',
+				iconSize:     [24, 24], // size of the icon
+				shadowSize:   [24, 24], // size of the shadow
+				iconAnchor:   [16, 16], // point of the icon which will correspond to marker's location
+				popupAnchor:  [-3, -3] // point from which the popup should open relative to the iconAnchor
+			});
+			
+			function createMarker(feature, latlng) {
+			  return L.marker(latlng, {icon: chit});
+			}
+	   
+			function pop_GKmapdata_0(feature, layer) {
+				var popupContent = '<table>\
+						<tr>\
+							<td colspan="2" style="font-size:15px;font-weight:bold">' + (feature.properties['label'] !== null ? autolinker.link(feature.properties['label'].toLocaleString()) : '') + '</td>\
+						</tr>\
+					</table>';
+				layer.bindPopup(popupContent, {maxHeight: 400});
+			}
+
+			function style_GKmapdata_0_0() {
+				return {
+					pane: 'pane_GKmapdata_0',
+					radius: 4.0,
+					opacity: 1,
+					color: 'rgba(35,35,35,1.0)',
+					dashArray: '',
+					lineCap: 'butt',
+					lineJoin: 'miter',
+					weight: 1,
+					fill: true,
+					fillOpacity: 1,
+					fillColor: 'rgba(133,182,111,1.0)',
+					interactive: true,
+				}
+			}
+			map.createPane('pane_GKmapdata_0');
+			map.getPane('pane_GKmapdata_0').style.zIndex = 401;
+			map.getPane('pane_GKmapdata_0').style['mix-blend-mode'] = 'normal';
+			var layer_GKmapdata_0 = new L.geoJson(json_GKmapdata_0, {
+				attribution: '',
+				interactive: true,
+				dataVar: 'json_GKmapdata_0',
+				layerName: 'layer_GKmapdata_0',
+				pane: 'pane_GKmapdata_0',
+				onEachFeature: pop_GKmapdata_0,
+				pointToLayer: createMarker
+			});
+			bounds_group.addLayer(layer_GKmapdata_0);
+			map.addLayer(layer_GKmapdata_0);
+
+	   
+			//setBounds();
+        </script>
+    </body>
+</html>
