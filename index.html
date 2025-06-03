@@ -33,11 +33,28 @@
         <script src="js/labels.js"></script>
         <script src="data/GKmapdata_0.js"></script>
         <script>
+
+			var start_lat = 39.6;
+			var start_long = -104.9;
+
+			var map_w = window.innerWidth;
+			var map_h = window.innerHeight;
+
+			if(map_w < 800 || map_h < 1100) {
+				zoom_level = 6;
+			}
+			
 			var map = L.map('map', {
-    				zoomControl:true, maxZoom:9, minZoom:2
-			}).setView([39.6, -104.9], 5);
+    				zoomControl:true, maxZoom:10, minZoom:2
+			}).setView([start_lat, start_long], 5);
 
+			L.control.zoom({
+				position: 'topright',
+			}).addTo(map);
 
+			map.setZoom(zoom_level);
+
+			
 			var hash = new L.Hash(map);
 			var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
 			var bounds_group = new L.featureGroup([]);
@@ -51,9 +68,9 @@
 				opacity: 1.0,
 				attribution: '',
 				minZoom: 2,
-				maxZoom: 9,
+				maxZoom: 10,
 				minNativeZoom: 2,
-				maxNativeZoom: 9
+				maxNativeZoom: 10
 			});
 			layer_ESRIGraylight_0;
 			map.addLayer(layer_ESRIGraylight_0);
