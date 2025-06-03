@@ -40,8 +40,11 @@
 			var map_w = window.innerWidth;
 			var map_h = window.innerHeight;
 
+			var zoom_level = 2;
+			
+	
 			if(map_w < 800 || map_h < 1100) {
-				zoom_level = 6;
+				zoom_level = 2;
 			}
 			
 			var map = L.map('map', {
