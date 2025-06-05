@@ -40,20 +40,16 @@
 			var map_w = window.innerWidth;
 			var map_h = window.innerHeight;
 
-			var zoom_level;
-
-			// Define mobile vs desktop breakpoints
-			if (map_w < 800 || map_h < 700) {
-    				zoom_level = 2;  // Mobile: zoomed out
-			} else {
-    				zoom_level = 4;  // Desktop: zoomed in
+			var zoom_level = 2;
+			
+	
+			if(map_w < 800 || map_h < 1100) {
+				zoom_level = 2;
 			}
-
+			
 			var map = L.map('map', {
-    				zoomControl: true,
-    				maxZoom: 10,
-    				minZoom: 2
-			}).setView([start_lat, start_long], zoom_level);
+    				zoomControl:true, maxZoom:10, minZoom:2
+			}).setView([start_lat, start_long], 5);
 
 			L.control.zoom({
 				position: 'topright',
