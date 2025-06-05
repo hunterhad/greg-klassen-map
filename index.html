@@ -34,19 +34,21 @@
         <script src="data/GKmapdata_0.js"></script>
         <script>
 
-			var start_lat = 39.6;
-			var start_long = -104.9;
+			var start_lat, start_long, zoom_level;
 
 			var map_w = window.innerWidth;
 			var map_h = window.innerHeight;
 
-			var zoom_level;
-
-			// Define mobile vs desktop breakpoints
 			if (map_w < 800 || map_h < 700) {
-    				zoom_level = 2;  // Mobile: zoomed out
+    				// 📱 Mobile view
+   				 zoom_level = 2;
+    				start_lat = 38.5;  // Center of continental US
+    				start_long = -96.0;
 			} else {
-    				zoom_level = 4;  // Desktop: zoomed in
+    				// 🖥️ Desktop view
+    				zoom_level = 4;
+    				start_lat = 39.6;  // Centered more west
+    				start_long = -104.9;
 			}
 
 			var map = L.map('map', {
